@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>vrg5store | متجر السيارات والعناية الفاخرة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-hover: #f3e5ab;
+            --bg-dark: #0d0d0f;
+            --bg-card: #16161a;
+            --text-light: #ffffff;
+            --text-gray: #a0a0a5;
+            --border-color: #26262b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.5;
+            padding-bottom: 70px;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: rgba(22, 22, 26, 0.95);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Mobile Bottom Nav */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(22, 22, 26, 0.98);
+            border-top: 1px solid var(--border-color);
+            z-index: 999;
+            justify-content: space-around;
+            padding: 0.6rem 0;
+        }
+
+        .mobile-nav-item {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            position: relative;
+        }
+
+        .mobile-nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+
+        .mobile-nav-item.active, .mobile-nav-item:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            height: 55vh;
+            background: linear-gradient(rgba(13,13,15,0.7), rgba(13,13,15,0.95)), url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1200') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            margin-top: 55px;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-gray);
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        /* Grid & Cards */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 1.2rem;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .card-price {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 1.2rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .features-list li i {
+            color: var(--primary);
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, var(--primary), #aa820a);
+            color: #000;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        /* Side Navigation Drawer (Mobile) */
+        .side-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 260px;
+            height: 100%;
+            background: var(--bg-card);
+            z-index: 1002;
+            transition: right 0.3s ease;
+            padding: 2rem 1.5rem;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .side-drawer.active {
+            right: 0;
+        }
+
+        .side-drawer ul {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .side-drawer ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .side-drawer ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        /* Cart Drawer */
+        .cart-modal {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 80vh;
+            background-color: var(--bg-card);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
+            z-index: 1001;
+            transition: bottom 0.3s ease;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-modal.active {
+            bottom: 0;
+        }
+
+        /* Centered Checkout Modal (Mobile & Desktop) */
+        .checkout-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 480px;
+            max-height: 90vh;
+            background-color: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.2);
+            z-index: 1005;
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow-y: auto;
+        }
+
+        .checkout-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .payment-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-dark);
+            color: #fff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .payment-btn.active {
+            border-color: var(--primary);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .badge {
+            background-color: #e63946;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            position: absolute;
+            top: -5px;
+            right: 10px;
+        }
+
+        /* Desktop Adjustments */
+        @media (min-width: 769px) {
+            body { padding-bottom: 0; }
+            .cart-modal {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 450px;
+                height: auto;
+                max-height: 85vh;
+                border-radius: 12px;
+                bottom: auto;
+                display: none;
+            }
+            .cart-modal.active {
+                display: flex;
+                bottom: auto;
+            }
+            .mobile-bottom-nav { display: none !important; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .mobile-bottom-nav { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">VRG5STORE</a>
+            <ul class="nav-links">
+                <li><a href="#polishing">العناية والتلميع</a></li>
+                <li><a href="#cars">معرض السيارات</a></li>
+                <li><a href="#contact">التواصل</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleSideDrawer()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer (Mobile Menu) -->
+    <div class="side-drawer" id="side-drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="color: var(--primary);">القائمة</h3>
+            <i class="fas fa-times" style="font-size: 1.2rem; cursor: pointer;" onclick="toggleSideDrawer()"></i>
+        </div>
+        <ul>
+            <li><a href="#polishing" onclick="toggleSideDrawer()"><i class="fas fa-sparkles"></i> خدمات التلميع</a></li>
+            <li><a href="#cars" onclick="toggleSideDrawer()"><i class="fas fa-car"></i> بيع السيارات</a></li>
+            <li><a href="https://wa.me/966506500973" target="_blank"><i class="fab fa-whatsapp"></i> واتساب مباشرة</a></li>
+            <li><a href="tel:0506500973"><i class="fas fa-phone"></i> اتصال مباشر</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>vrg5store</h1>
+        <p>القمة في بيع السيارات الفاخرة والعناية الفائقة بها</p>
+    </section>
+
+    <!-- Section 1: Polish & Care Services -->
+    <section id="polishing">
+        <div class="section-title">
+            <h2>خدمات التلميع والعناية</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=600" class="card-img" alt="تلميع ساطع">
+                <div class="card-body">
+                    <h3 class="card-title">تلميع ساطع متكامل</h3>
+                    <div class="card-price">1,200 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> إزالة الخدوش وتنظيف داخلي بالبخار</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('تلميع ساطع متكامل', 1200)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=600" class="card-img" alt="نانو سيراميك">
+                <div class="card-body">
+                    <h3 class="card-title">حماية نانو سيراميك</h3>
+                    <div class="card-price">3,500 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> 4 طبقات حماية مع ضمان 3 سنوات</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('حماية نانو سيراميك', 3500)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=600" class="card-img" alt="عناية تفصيلية">
+                <div class="card-body">
+                    <h3 class="card-title">VIP عناية تفصيلية</h3>
+                    <div class="card-price">800 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> غسيل بخار وتعقيم وحماية مقاعد</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('VIP عناية تفصيلية', 800)">إضافة للسلة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Cars for Sale -->
+    <section id="cars">
+        <div class="section-title">
+            <h2>قسم السيارات</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=600" class="card-img" alt="كامري 2025">
+                <div class="card-body">
+                    <h3 class="card-title">كامري 2025</h3>
+                    <div class="card-price">120,000 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-car"></i> 4 سلندر - مواصفات كاملة أمان عالي</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('كامري 2025', 120000)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=600" class="card-img" alt="سيارة K5">
+                <div class="card-body">
+                    <h3 class="card-title">سيارة K5</h3>
+                    <div class="card-price">105,000 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-car"></i> تصميم رياضي - بانوراما - تشغيل عن بعد</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('سيارة K5', 105000)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=600" class="card-img" alt="لكزس 2023">
+                <div class="card-body">
+                    <h3 class="card-title">لكزس موديل 2023</h3>
+                    <div class="card-price">270,000 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-car"></i> فخامة مطلقة - نظام صوتي VIP - دفع رباعي</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('لكزس موديل 2023', 270000)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?q=80&w=600" class="card-img" alt="رنج روفر 2024">
+                <div class="card-body">
+                    <h3 class="card-title">رنج روفر 2024</h3>
+                    <div class="card-price">350,000 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-car"></i> تعليق هوائي - شاشات ومقاعد مساج</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('رنج روفر 2024', 350000)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?q=80&w=600" class="card-img" alt="اكورد 2022">
+                <div class="card-body">
+                    <h3 class="card-title">اكورد موديل 2022</h3>
+                    <div class="card-price">70,000 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-car"></i> محرك توربو - ثبات واعتمادية عالية</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('اكورد موديل 2022', 70000)">إضافة للسلة</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1631295868223-63265b40d9e4?q=80&w=600" class="card-img" alt="روز رايز 2021">
+                <div class="card-body">
+                    <h3 class="card-title">روز رايز موديل 2021</h3>
+                    <div class="card-price">1,500,000 ر.س</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-car"></i> سقف نجوم الليل - عزل صوتي تام VIP</li>
+                    </ul>
+                    <button class="btn-add" onclick="addToCart('روز رايز موديل 2021', 1500000)">إضافة للسلة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="#polishing" class="mobile-nav-item">
+            <i class="fas fa-sparkles"></i>
+            <span>التلميع</span>
+        </a>
+        <a href="#cars" class="mobile-nav-item">
+            <i class="fas fa-car"></i>
+            <span>السيارات</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" onclick="toggleCart()">
+            <i class="fas fa-shopping-bag"></i>
+            <span>السلة</span>
+            <span class="badge" id="mobile-cart-count">0</span>
+        </a>
+        <a href="https://wa.me/966506500973" target="_blank" class="mobile-nav-item">
+            <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+            <span>واتساب</span>
+        </a>
+    </nav>
+
+    <!-- Overlay Background -->
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="modal-header">
+            <h3>سلة المشتريات</h3>
+            <i class="fas fa-times" style="cursor:pointer;" onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <h4>المجموع: <span id="cart-total" style="color: var(--primary);">0</span> ر.س</h4>
+            <button class="btn-add" style="margin-top: 0.8rem;" onclick="openCheckout()">المتابعة للشراء</button>
+        </div>
+    </div>
+
+    <!-- Centered Payment Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="modal-header">
+            <h3 style="color: var(--primary);"><i class="fas fa-lock"></i> دفع إلكتروني آمن</h3>
+            <i class="fas fa-times" style="cursor:pointer; font-size: 1.2rem; color: var(--text-gray);" onclick="closeCheckout()"></i>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.5rem;">اختر وسيلة الدفع المناسبة:</p>
+        <div class="payment-methods">
+            <div class="payment-btn active" onclick="selectPayment(this)"><i class="fab fa-apple"></i> Apple Pay</div>
+            <div class="payment-btn" onclick="selectPayment(this)">مدى Mada</div>
+            <div class="payment-btn" onclick="selectPayment(this)"><i class="far fa-credit-card"></i> Visa</div>
+        </div>
+
+        <form onsubmit="processPayment(event)">
+            <div class="form-group">
+                <input type="text" placeholder="الاسم الكامل" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" placeholder="رقم الجوال" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="رقم البطاقة / البيانات" required>
+            </div>
+            <button type="submit" class="btn-add" style="margin-top: 0.5rem;">تأكيد ودفع الآن</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" style="background: var(--bg-card); text-align: center; padding: 2rem 1rem; margin-top: 3rem; border-top: 1px solid var(--border-color);">
+        <h3 style="color: var(--primary); margin-bottom: 0.8rem;">vrg5store</h3>
+        <p style="margin-bottom: 0.5rem;"><i class="fas fa-phone"></i> <a href="tel:0506500973" style="color: #fff; text-decoration: none;">0506500973</a></p>
+        <p style="margin-bottom: 0.5rem;"><i class="fas fa-envelope"></i> kaleelksa659@gmail.com</p>
+        <p style="color: var(--text-gray); font-size: 0.8rem; margin-top: 1rem;">جميع الحقوق محفوظة &copy; vrg5store</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let cart = [];
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            mobileCartCount.innerText = cart.length;
+            cartItemsContainer.innerHTML = '';
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <div style="font-weight: bold; font-size: 0.95rem;">${item.title}</div>
+                            <div style="color: var(--primary); font-size: 0.9rem;">${item.price.toLocaleString()} ر.س</div>
+                        </div>
+                        <i class="fas fa-trash" style="color: #e63946; cursor: pointer;" onclick="removeFromCart(${index})"></i>
+                    </div>
+                `;
+            });
+
+            cartTotal.innerText = total.toLocaleString();
+        }
+
+        function toggleCart(forceOpen = false) {
+            const cartModal = document.getElementById('cart-modal');
+            const overlay = document.getElementById('overlay');
+            
+            if (forceOpen) {
+                cartModal.classList.add('active');
+                overlay.classList.add('active');
+            } else {
+                cartModal.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+        }
+
+        function toggleSideDrawer() {
+            const drawer = document.getElementById('side-drawer');
+            const overlay = document.getElementById('overlay');
+            drawer.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة حالياً!');
+                return;
+            }
+            document.getElementById('cart-modal').classList.remove('active');
+            document.getElementById('checkout-modal').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        function closeAll() {
+            document.getElementById('cart-modal').classList.remove('active');
+            document.getElementById('checkout-modal').classList.remove('active');
+            document.getElementById('side-drawer').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            alert('تم استلام طلبك بنجاح في متجر vrg5store! سنقوم بالتواصل معك عبر الواتساب أو الجوال.');
+            cart = [];
+            updateCartUI();
+            closeAll();
+        }
+    </script>
+</body>
+</script>
+</html>
